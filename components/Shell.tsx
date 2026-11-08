@@ -7,7 +7,7 @@ import type { SessionUser } from '@/lib/session';
 import { api } from '@/lib/client';
 import {
   IconCalendar, IconClients, IconClock, IconGear, IconHome, IconImage, IconInvoice,
-  IconKey, IconLogout, IconMenu, IconOrders, IconPrint, IconStock, IconUser,
+  IconKey, IconLogout, IconMenu, IconOrders, IconPrint, IconStock, IconTag, IconUser,
 } from './icons';
 
 export const MENU = [
@@ -15,6 +15,7 @@ export const MENU = [
   { href: '/clients', label: 'Clients', icon: IconClients },
   { href: '/commandes', label: 'Commandes', icon: IconOrders },
   { href: '/facturation', label: 'Facturation', icon: IconInvoice },
+  { href: '/produits', label: 'Produits', icon: IconTag },
   { href: '/stocks', label: 'Stocks', icon: IconStock },
   { href: '/production', label: 'Production', icon: IconGear },
   { href: '/maquettes', label: 'Maquettes', icon: IconImage },

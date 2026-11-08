@@ -33,6 +33,7 @@ export const IconMail = (p: P) => <S {...p}><rect x="3" y="5" width="18" height=
 export const IconPin = (p: P) => <S {...p}><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></S>;
 export const IconNote = (p: P) => <S {...p}><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></S>;
 export const IconList = (p: P) => <S {...p}><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M3 15h18M9 3v18" /></S>;
+export const IconTag = (p: P) => <S {...p}><path d="M20.6 13.4L11 3.8a2 2 0 0 0-1.4-.6H4a1 1 0 0 0-1 1v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l4.6-4.6a2 2 0 0 0 0-2.8z" /><circle cx="7.5" cy="7.5" r="1.3" /></S>;
 export const IconMenu = (p: P) => <S {...p}><path d="M3 6h18M3 12h18M3 18h18" /></S>;
 export const IconKey = (p: P) => <S {...p}><circle cx="8" cy="15" r="4" /><path d="M10.8 12.2L20 3M17 6l3 3M15 8l2 2" /></S>;
 export const IconArrows = (p: P) => <S {...p}><path d="M7 4v16M3 8l4-4 4 4M17 20V4M21 16l-4 4-4-4" /></S>;

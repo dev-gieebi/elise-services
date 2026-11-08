@@ -155,6 +155,22 @@ create table if not exists public.maquettes (
 );
 
 -- ---------------------------------------------------------------------
+--  PRODUITS / SERVICES (catalogue vendu dans les commandes et factures)
+-- ---------------------------------------------------------------------
+create table if not exists public.produits (
+  id            bigint generated always as identity primary key,
+  reference     text unique,
+  designation   text not null,
+  categorie     text,
+  description   text,
+  unite         text not null default 'unité',
+  prix_unitaire numeric(14,2) not null default 0,
+  actif         boolean not null default true,
+  created_at    timestamptz not null default now(),
+  updated_at    timestamptz not null default now()
+);
+
+-- ---------------------------------------------------------------------
 --  INDEX
 -- ---------------------------------------------------------------------
 create index if not exists idx_commandes_client   on public.commandes(client_id);
@@ -179,7 +195,7 @@ end $$;
 do $$
 declare t text;
 begin
-  foreach t in array array['utilisateurs','clients','commandes','factures','articles','productions','maquettes']
+  foreach t in array array['utilisateurs','clients','commandes','factures','articles','productions','maquettes','produits']
   loop
     execute format('drop trigger if exists trg_%1$s_updated on public.%1$s', t);
     execute format('create trigger trg_%1$s_updated before update on public.%1$s
@@ -227,6 +243,19 @@ drop trigger if exists trg_articles_ref on public.articles;
 create trigger trg_articles_ref before insert on public.articles
   for each row execute function public.reference_article();
 
+create or replace function public.reference_produit() returns trigger
+language plpgsql as $$
+begin
+  if new.reference is null or new.reference = '' then
+    new.reference := 'PRD-' || lpad((coalesce((select max(id) from public.produits), 0) + 1)::text, 4, '0');
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists trg_produits_ref on public.produits;
+create trigger trg_produits_ref before insert on public.produits
+  for each row execute function public.reference_produit();
+
 -- Mise à jour de la quantité en stock à chaque mouvement
 create or replace function public.appliquer_mouvement() returns trigger
 language plpgsql as $$
@@ -269,6 +298,7 @@ alter table public.articles         enable row level security;
 alter table public.mouvements_stock enable row level security;
 alter table public.productions      enable row level security;
 alter table public.maquettes        enable row level security;
+alter table public.produits         enable row level security;
 
 -- ---------------------------------------------------------------------
 --  STOCKAGE DES FICHIERS DE MAQUETTES (bucket public en lecture)

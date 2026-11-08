@@ -97,6 +97,17 @@ export const RESOURCES: Record<string, ResourceDef> = {
     prepare: calculerFacture,
   },
 
+  produits: {
+    table: 'produits',
+    select: '*',
+    search: ['reference', 'designation', 'categorie', 'description'],
+    filters: ['categorie', 'actif'],
+    fields: ['reference', 'designation', 'categorie', 'unite', 'prix_unitaire', 'description', 'actif'],
+    required: { designation: 'La désignation est obligatoire.' },
+    order: { column: 'designation', ascending: true },
+    prepare: (d) => ({ ...d, prix_unitaire: num(d.prix_unitaire), actif: d.actif !== false }),
+  },
+
   articles: {
     table: 'articles',
     select: '*',

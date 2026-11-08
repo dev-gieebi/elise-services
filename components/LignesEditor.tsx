@@ -1,8 +1,11 @@
 'use client';
 
-import { fcfa } from '@/lib/client';
+import { useEffect, useId, useState } from 'react';
+import { api, fcfa } from '@/lib/client';
 
 export type Ligne = { designation: string; quantite: number | string; prix_unitaire: number | string };
+
+type Produit = { id: number; designation: string; prix_unitaire: number };
 
 export const totalLignes = (l: Ligne[]) =>
   (l || []).reduce((s, x) => s + (Number(x.quantite) || 0) * (Number(x.prix_unitaire) || 0), 0);
@@ -12,7 +15,20 @@ export default function LignesEditor({ value, onChange, disabled }: {
   value: Ligne[]; onChange: (l: Ligne[]) => void; disabled?: boolean;
 }) {
   const lignes = value || [];
+  const listId = useId();
+  const [produits, setProduits] = useState<Produit[]>([]);
+
+  useEffect(() => {
+    api('/api/r/produits?size=500&actif=true').then((r) => setProduits(r.data || [])).catch(() => {});
+  }, []);
+
   const maj = (i: number, patch: Partial<Ligne>) => onChange(lignes.map((l, j) => (j === i ? { ...l, ...patch } : l)));
+
+  // Choisir un produit du catalogue remplit aussi le prix unitaire
+  const saisirDesignation = (i: number, designation: string) => {
+    const p = produits.find((x) => x.designation === designation);
+    maj(i, p ? { designation, prix_unitaire: p.prix_unitaire } : { designation });
+  };
 
   return (
     <div className="lignes">
@@ -34,7 +50,7 @@ export default function LignesEditor({ value, onChange, disabled }: {
             {lignes.map((l, i) => (
               <tr key={i}>
                 <td><input value={l.designation} disabled={disabled} placeholder="Ex : Flyers A5 quadri 135 g"
-                  onChange={(e) => maj(i, { designation: e.target.value })} /></td>
+                  list={listId} onChange={(e) => saisirDesignation(i, e.target.value)} /></td>
                 <td><input type="number" min="0" step="any" value={l.quantite} disabled={disabled}
                   onChange={(e) => maj(i, { quantite: e.target.value })} /></td>
                 <td><input type="number" min="0" step="any" value={l.prix_unitaire} disabled={disabled}
@@ -51,6 +67,9 @@ export default function LignesEditor({ value, onChange, disabled }: {
           + Ajouter une ligne
         </button>
       )}
+      <datalist id={listId}>
+        {produits.map((p) => <option key={p.id} value={p.designation}>{fcfa(p.prix_unitaire)}</option>)}
+      </datalist>
     </div>
   );
 }
