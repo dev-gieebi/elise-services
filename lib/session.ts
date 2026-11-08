@@ -8,7 +8,7 @@ export type Role = 'superadmin' | 'utilisateur';
 export type SessionUser = { id: number; nom: string; email: string; role: Role };
 
 function secret() {
-  const s = process.env.JWT_SECRET;
+  const s = (process.env.JWT_SECRET || '').trim();
   if (!s || s.length < 16) {
     throw new Error('JWT_SECRET manquant ou trop court (variables d’environnement).');
   }
