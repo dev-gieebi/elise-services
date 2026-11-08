@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <g transform="translate(50 50)">
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#e63946" transform="rotate(0) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#f4a261" transform="rotate(45) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#f2c94c" transform="rotate(90) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#6fcf97" transform="rotate(135) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#2a9d8f" transform="rotate(180) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#2f80ed" transform="rotate(225) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#1b3563" transform="rotate(270) scale(1.05)"/>
+    <path d="M0 0 C -6 -18, -4 -38, 0 -44 C 4 -38, 6 -18, 0 0 Z" fill="#9b51e0" transform="rotate(315) scale(1.05)"/>
+    <circle r="7" fill="#fff"/>
+  </g>
+</svg>
